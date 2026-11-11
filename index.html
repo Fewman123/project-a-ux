@@ -1,0 +1,889 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карта сайта Project A</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one readable column, diagram-heavy, green-grey paper with a deep green accent */
+:root{
+  --bg:#F3F5F1;
+  --surface:#FCFDFA;
+  --surface-2:#E9EDE5;
+  --line:#DCE1D8;
+  --line-strong:#BFC9BC;
+  --fg:#131A16;
+  --muted:#5F6B63;
+  --accent:#1D6B4C;
+  --accent-soft:#E0EFE6;
+  --amber:#8A5514;
+  --amber-soft:#F5EADB;
+  --slate:#566471;
+  --slate-soft:#E8EDF0;
+  --font-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --font-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1210;
+    --surface:#151B18;
+    --surface-2:#1C2420;
+    --line:#28322C;
+    --line-strong:#3C493F;
+    --fg:#E6EBE5;
+    --muted:#98A49C;
+    --accent:#63C49A;
+    --accent-soft:#152F26;
+    --amber:#D8A263;
+    --amber-soft:#2A2116;
+    --slate:#9FB0BE;
+    --slate-soft:#1A2228;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1210;
+  --surface:#151B18;
+  --surface-2:#1C2420;
+  --line:#28322C;
+  --line-strong:#3C493F;
+  --fg:#E6EBE5;
+  --muted:#98A49C;
+  --accent:#63C49A;
+  --accent-soft:#152F26;
+  --amber:#D8A263;
+  --amber-soft:#2A2116;
+  --slate:#9FB0BE;
+  --slate-soft:#1A2228;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0 0 auto;
+  height:env(safe-area-inset-top, 0px);
+  background:var(--bg);
+  z-index:10;
+}
+.wrap{width:min(1080px,100%);margin-inline:auto}
+a{color:var(--accent)}
+code,.mono{font-family:var(--font-mono)}
+p{margin:0}
+h1,h2,h3{text-wrap:balance;margin:0;font-weight:600}
+
+/* Sticky nav */
+.topbar{
+  position:sticky;
+  top:env(safe-area-inset-top, 0px);
+  z-index:9;
+  backdrop-filter:blur(10px);
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.topbar .wrap{
+  display:flex;align-items:center;gap:18px;
+  padding-block:11px;
+  overflow-x:auto;
+}
+.brand{
+  font-family:var(--font-display);
+  font-size:13px;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  margin-right:auto;
+}
+.brand em{font-style:normal;color:var(--muted);font-family:var(--font-mono);font-size:11.5px;margin-left:8px}
+.tnav{display:flex;gap:16px;white-space:nowrap}
+.tnav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  padding-block:2px;
+  border-bottom:1px solid transparent;
+}
+.tnav a:hover,.tnav a:focus-visible{color:var(--fg);border-bottom-color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Hero */
+.hero{padding-block:56px 40px;border-bottom:1px solid var(--line)}
+.kicker{
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(30px,5vw,50px);
+  line-height:1.08;
+  letter-spacing:-.015em;
+  margin-bottom:20px;
+}
+.lede{
+  max-width:62ch;
+  color:var(--muted);
+  font-size:17px;
+}
+.meta{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1px;
+  margin-top:34px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+}
+.meta div{background:var(--surface);padding:14px 16px}
+.meta dt{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.meta dd{margin:0;font-size:14.5px;font-weight:500}
+
+/* Sections */
+section{padding-block:52px;border-bottom:1px solid var(--line)}
+.sec-kicker{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+section h2{
+  font-family:var(--font-display);
+  font-size:clamp(20px,2.6vw,28px);
+  line-height:1.2;
+  letter-spacing:-.01em;
+  margin-bottom:12px;
+}
+.sec-intro{max-width:66ch;color:var(--muted);font-size:15px;margin-bottom:30px}
+
+/* Accent sections: the map and the page spec are the two anchors of this document */
+section.accent-sec{
+  background:var(--accent-soft);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding-block:40px;
+  padding-inline:24px;
+  margin-block:14px;
+}
+section.accent-sec .sec-kicker{color:var(--accent)}
+section.accent-sec .sec-intro{color:var(--fg);opacity:.75}
+
+/* Decision cards */
+.decisions{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.decision{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:20px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.decision .tag{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--accent);
+  letter-spacing:.04em;
+}
+.decision h3{font-size:15.5px;line-height:1.3}
+.decision p{font-size:13.8px;color:var(--muted)}
+
+/* Sitemap */
+.root{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--surface);
+  border:1px solid var(--line-strong);
+  border-radius:10px;
+  padding:16px 18px;
+}
+.root .url{font-family:var(--font-mono);font-size:14px;font-weight:500;color:var(--accent);white-space:nowrap}
+.root p{font-size:13.5px;color:var(--muted)}
+.trunk{height:26px;width:1px;background:var(--line-strong);margin-left:34px}
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:12px}
+.branch{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px 16px 8px;
+}
+.branch-head{display:flex;flex-direction:column;gap:3px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.branch-head .url{font-family:var(--font-mono);font-size:13px;font-weight:500}
+.branch-head span{font-size:12.5px;color:var(--muted)}
+.branch ul{list-style:none;margin:8px 0 0;padding:0}
+.branch li{
+  position:relative;
+  padding:5px 0 5px 15px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--muted);
+}
+.branch li::before{
+  content:"";
+  position:absolute;left:3px;top:0;bottom:0;
+  width:1px;background:var(--line);
+}
+.branch li::after{
+  content:"";
+  position:absolute;left:3px;top:13px;
+  width:7px;height:1px;background:var(--line);
+}
+.branch li:last-child::before{height:14px}
+.branch li b{color:var(--fg);font-weight:500}
+.branch-note{
+  margin-top:10px;
+  font-family:var(--font-body);
+  font-size:12.5px;
+  color:var(--muted);
+  padding-top:10px;
+  border-top:1px dashed var(--line);
+}
+
+/* Roadmap tiers */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:26px}
+.tier{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface)}
+.tier h3{font-size:13px;letter-spacing:.02em;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.now{background:var(--accent)}
+.dot.next{background:var(--amber)}
+.dot.later{background:var(--slate)}
+.tier .when{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  padding:3px 8px;
+  border-radius:5px;
+  border:1px solid var(--line);
+  background:var(--surface-2);
+  color:var(--muted);
+  white-space:nowrap;
+}
+.dont{margin-top:26px;display:grid;gap:6px}
+.dont h3{font-size:14px;margin-bottom:4px}
+.dont p{font-size:13.5px;color:var(--muted);max-width:80ch}
+.dont p b{color:var(--fg);font-weight:600}
+
+/* Flow lanes */
+.legend{
+  display:flex;flex-wrap:wrap;gap:14px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--surface);
+  margin-bottom:22px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:22px;height:12px;border-radius:3px;border:1px solid var(--line-strong);flex:none}
+.swatch.src{background:var(--surface);border-style:dashed}
+.swatch.act{background:var(--accent-soft);border-color:var(--accent)}
+.swatch.sys{background:var(--surface);border-style:dashed;opacity:.8}
+.lane{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  padding:16px 18px;
+  margin-bottom:12px;
+}
+.lane-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:13px}
+.lane-head h3{font-size:14.5px}
+.lane-head .kind{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:2px 6px;
+}
+.lane-head .kind.main{color:var(--accent);border-color:var(--accent)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;row-gap:9px}
+.node{
+  padding:6px 10px;
+  border:1px solid var(--line-strong);
+  border-radius:6px;
+  background:var(--bg);
+  font-size:13px;
+  line-height:1.25;
+}
+.node.url{font-family:var(--font-mono);font-size:12px}
+.node.act{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.node.src{background:var(--surface);border-style:dashed;color:var(--muted)}
+.node.sys{background:transparent;border-style:dashed;color:var(--muted)}
+.arw{color:var(--line-strong);font-family:var(--font-mono);font-size:14px;line-height:1}
+@media (max-width:700px){
+  .flow{flex-direction:column;align-items:stretch;gap:2px}
+  .node{text-align:center}
+  .arw{
+    text-align:center;
+    transform:rotate(90deg);
+    display:block;
+    font-size:13px;
+    line-height:1;
+    margin-block:1px;
+    color:var(--line-strong);
+  }
+}
+
+/* Lifecycle */
+.life{display:grid;gap:0;margin-top:6px}
+.step{
+  display:grid;
+  grid-template-columns:38px 1fr;
+  gap:14px;
+  padding-bottom:18px;
+  position:relative;
+}
+.step:last-child{padding-bottom:0}
+.step::before{
+  content:"";
+  position:absolute;left:15px;top:26px;bottom:0;width:1px;background:var(--line);
+}
+.step:last-child::before{display:none}
+.step .n{
+  width:31px;height:31px;border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:12px;
+  position:relative;z-index:1;
+  flex:none;
+}
+.step h3{font-size:14.5px;margin-bottom:2px}
+.step.key .n{background:var(--accent);border-color:var(--accent);color:#fff}
+.step p .mono{
+  display:inline-block;
+  padding:1px 5px;
+  border-radius:4px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  font-size:12px;
+  white-space:nowrap;
+}
+.step p{font-size:13.3px;color:var(--muted);max-width:72ch}
+
+/* SVG figures */
+figure{margin:0}
+.figure-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:8px}
+figure svg{display:block;height:auto}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:9px;max-width:80ch}
+.svg-grid .box{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.2}
+.svg-grid .box.hot{fill:var(--accent-soft);stroke:var(--accent)}
+.svg-grid .box.hold{fill:none;stroke:var(--muted);stroke-dasharray:5 4}
+.svg-grid .st-kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;fill:var(--muted)}
+.svg-grid .st-name{font-family:var(--font-display);font-size:15px;fill:var(--fg)}
+.svg-grid .st-desc{font-family:var(--font-body);font-size:11.5px;fill:var(--muted)}
+.svg-grid .edge{stroke:currentColor;stroke-width:1.4;fill:none}
+.svg-grid .edge-label{font-family:var(--font-mono);font-size:10.5px;fill:var(--muted)}
+.phase-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:20px}
+.pnote{border-left:2px solid var(--line-strong);padding-left:14px}
+.pnote h3{font-size:13.5px;margin-bottom:3px}
+.pnote p{font-size:13px;color:var(--muted)}
+
+/* Tables */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.3px;min-width:540px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;background:var(--surface-2);
+}
+tr:last-child td{border-bottom:none}
+td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;text-align:center;color:var(--muted)}
+td.num.on{color:var(--accent);font-weight:500}
+td .u{font-family:var(--font-mono);font-size:12px;color:var(--fg);white-space:nowrap}
+td .sub{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.qt{font-weight:500;color:var(--fg)}
+
+/* Objections */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:4px}
+.obj{border:1px solid var(--line);border-radius:9px;padding:15px 16px;background:var(--surface);display:grid;gap:9px;align-content:start}
+.obj-q{font-size:14px;font-weight:600;line-height:1.4;margin:0;text-wrap:balance}
+.obj-q::before{content:"«";color:var(--line-strong)}
+.obj-q::after{content:"»";color:var(--line-strong)}
+.obj-a{font-size:13px;color:var(--muted);margin:0}
+.obj-where{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);letter-spacing:.02em;margin:0}
+
+footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
+footer p{max-width:70ch}
+.dont ul{margin:0;padding-left:0;list-style:none;display:grid;gap:7px}
+.dont li{font-size:13.5px;color:var(--muted);padding-left:14px;position:relative;max-width:82ch}
+.dont li::before{
+  content:"";
+  position:absolute;left:0;top:.62em;
+  width:5px;height:5px;border-radius:50%;background:var(--line-strong);
+}
+.dont li b{color:var(--fg);font-weight:600}
+
+@media (max-width:600px){
+  section{padding-block:40px}
+  section.accent-sec{padding-inline:16px;padding-block:32px;margin-inline:-4px}
+  .hero{padding-block:38px 30px}
+  .tnav{display:none}
+}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Project A<em>UX · v1</em></div>
+    <nav class="tnav">
+      <a href="#map">Карта</a>
+      <a href="#flows">Потоки</a>
+      <a href="#life">Заявка</a>
+      <a href="#pages">Страницы</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Pre-launch · Беларусь · RU-only</div>
+    <h1>Структура сайта, потоки и точки конверсии</h1>
+    <p class="lede">Три модели премиальной мебели для кошек, собственное производство, запуск через лист ожидания и предзаказ. UI и брендинг — вне этого документа.</p>
+    <dl class="meta">
+      <div><dt>Стадия</dt><dd>Лист ожидания → предзаказ</dd></div>
+      <div><dt>Рынок</dt><dd>Беларусь, BYN</dd></div>
+      <div><dt>Продукт</dt><dd>3 модели одной системы</dd></div>
+      <div><dt>Канал</dt><dd>Заявка, без корзины</dd></div>
+    </dl>
+  </div>
+
+  <section id="decisions">
+    <div class="sec-kicker">Основа</div>
+    <h2>Три решения, на которых держится структура</h2>
+    <p class="sec-intro">Всё остальное — следствия. Если менять эти три, меняется половина карты.</p>
+    <div class="decisions">
+      <article class="decision">
+        <span class="tag">01 · /early-access</span>
+        <h3>Один URL на две фазы</h3>
+        <p>Лист ожидания и предзаказ — состояния одной страницы. Переключение флагом контента, реклама и письма не ломаются.</p>
+      </article>
+      <article class="decision">
+        <span class="tag">02 · /models/nest-s</span>
+        <h3>Постоянные адреса моделей</h3>
+        <p>Карточки получают финальные URL с первого дня. При переходе к продажам не нужны редиректы и не теряется SEO.</p>
+      </article>
+      <article class="decision">
+        <span class="tag">03 · конфигуратор</span>
+        <h3>Сохранить в заявку, не в корзину</h3>
+        <p>Конфигурация уходит в CRM вместе с контактами и сегментирует базу. Продажи на сайте нет — есть заявка.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="map" class="accent-sec">
+    <div class="sec-kicker">Карта</div>
+    <h2>Структура сайта</h2>
+    <p class="sec-intro">Восемь содержательных страниц, четыре юридических, три служебных и 404. Каждая страница старта наполнена — пустых разделов нет.</p>
+
+    <div class="root">
+      <span class="url">/</span>
+      <p>Hero → 3 модели → почему мы → производство → как работает предзаказ → доверие → мини-FAQ → CTA</p>
+    </div>
+    <div class="trunk" aria-hidden="true"></div>
+
+    <div class="branches">
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/models</span>
+          <span>выбор из трёх</span>
+        </div>
+        <ul>
+          <li><b>/models/nest-s</b></li>
+          <li><b>/models/nest-m</b></li>
+          <li><b>/models/nest-l</b></li>
+        </ul>
+        <div class="branch-note">Карточки, сравнение, подборщик из 3 вопросов</div>
+      </div>
+
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/early-access</span>
+          <span>заявка и предзаказ</span>
+        </div>
+        <ul>
+          <li>/thanks/whitelist</li>
+          <li>/thanks/preorder</li>
+        </ul>
+        <div class="branch-note">Форма из 4 полей, две фазы, состояние «пауза»</div>
+      </div>
+
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/about · /service</span>
+          <span>бренд и доверие</span>
+        </div>
+        <ul>
+          <li><b>/about</b> — производство, материалы, команда</li>
+          <li><b>/service</b> — доставка, оплата, сборка, гарантия</li>
+          <li><b>/contacts</b> — контакты и реквизиты</li>
+        </ul>
+      </div>
+
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/b2b</span>
+          <span>партнёрский канал</span>
+        </div>
+        <ul>
+          <li>дизайнеры интерьеров</li>
+          <li>отели, клиники, офисы</li>
+          <li>/thanks/b2b</li>
+        </ul>
+        <div class="branch-note">Открыт с первого дня, даже при 10–20% выручки</div>
+      </div>
+
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/legal/*</span>
+          <span>юридический слой</span>
+        </div>
+        <ul>
+          <li>/legal/offer</li>
+          <li>/legal/privacy</li>
+          <li>/legal/cookies</li>
+          <li>/legal/returns</li>
+        </ul>
+        <div class="branch-note">Плейсхолдеры до появления юрлица, но ссылки уже стоят у каждой формы</div>
+      </div>
+
+      <div class="branch">
+        <div class="branch-head">
+          <span class="url">/404</span>
+          <span>служебная</span>
+        </div>
+        <ul>
+          <li>3 модели</li>
+          <li>главная</li>
+          <li>поддержка</li>
+        </ul>
+        <div class="branch-note">Тупиков нет: с любой ошибки — путь к продукту</div>
+      </div>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <h3><span class="dot now"></span>P0 — запуск</h3>
+        <div class="when">8 + 4 + 3 страницы</div>
+        <div class="chips">
+          <span class="chip">/</span><span class="chip">/models</span><span class="chip">/models/*</span>
+          <span class="chip">/early-access</span><span class="chip">/about</span><span class="chip">/service</span>
+          <span class="chip">/contacts</span><span class="chip">/b2b</span>
+        </div>
+      </div>
+      <div class="tier">
+        <h3><span class="dot next"></span>P1 — после запуска</h3>
+        <div class="when">по появлении содержания</div>
+        <div class="chips">
+          <span class="chip">/reviews</span><span class="chip">/showroom</span>
+          <span class="chip">/journal</span><span class="chip">/models/compare</span>
+        </div>
+      </div>
+      <div class="tier">
+        <h3><span class="dot later"></span>P2 — при переходе к продажам</h3>
+        <div class="when">когда появится корзина</div>
+        <div class="chips">
+          <span class="chip">/cart</span><span class="chip">/checkout</span>
+          <span class="chip">/account</span><span class="chip">/catalog</span><span class="chip">/search</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dont">
+      <h3>Чего на старте нет</h3>
+      <ul>
+        <li><b>Каталог с фильтрами</b> — три модели не фильтруют, а выбирают.</li>
+        <li><b>Отдельный блог</b> — статьи живут блоками на карточке товара.</li>
+        <li><b>Страницы «Миссия», «Производство», «Команда»</b> — четыре тонкие страницы слабее одной сильной <code>/about</code> с якорями.</li>
+        <li><b>Отдельный FAQ</b> — секция на <code>/service</code> и на каждой карточке.</li>
+        <li><b>Страница отзывов</b> — отзывов физически нет до первых поставок.</li>
+        <li><b>Поиск и личный кабинет</b> — нечего искать и некуда входить.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="flows">
+    <div class="sec-kicker">Потоки</div>
+    <h2>Как человек попадает в заявку</h2>
+    <p class="sec-intro">Шесть входов. У каждого — один главный шаг и минимум решений по дороге. Форма всегда не длиннее одного экрана телефона.</p>
+
+    <div class="legend">
+      <span><i class="swatch src"></i>внешний вход</span>
+      <span><i class="swatch"></i>страница</span>
+      <span><i class="swatch act"></i>целевое действие</span>
+      <span><i class="swatch sys"></i>система / CRM</span>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>Реклама и Instagram</h3><span class="kind main">основной</span></div>
+      <div class="flow">
+        <span class="node src">Reels · Ads · сторис</span><span class="arw">→</span>
+        <span class="node">Главная</span><span class="arw">→</span>
+        <span class="node url">/models</span><span class="arw">→</span>
+        <span class="node url">/models/nest-m</span><span class="arw">→</span>
+        <span class="node">Конфигуратор</span><span class="arw">→</span>
+        <span class="node act">В лист ожидания</span><span class="arw">→</span>
+        <span class="node sys">/thanks/whitelist</span><span class="arw">→</span>
+        <span class="node sys">CRM</span>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>Прямая ссылка</h3><span class="kind">вторичный</span></div>
+      <div class="flow">
+        <span class="node src">Сторис · рассылка</span><span class="arw">→</span>
+        <span class="node url">/early-access</span><span class="arw">→</span>
+        <span class="node">Форма, 4 поля</span><span class="arw">→</span>
+        <span class="node act">Отправить</span><span class="arw">→</span>
+        <span class="node sys">/thanks/whitelist</span>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>Подбор модели</h3><span class="kind">вторичный</span></div>
+      <div class="flow">
+        <span class="node">Главная · /models</span><span class="arw">→</span>
+        <span class="node">Подборщик, 3 вопроса</span><span class="arw">→</span>
+        <span class="node">Рекомендация</span><span class="arw">→</span>
+        <span class="node url">/models/nest-*</span><span class="arw">→</span>
+        <span class="node act">Заявка</span>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>Поиск</h3><span class="kind">вторичный</span></div>
+      <div class="flow">
+        <span class="node src">Яндекс · Google</span><span class="arw">→</span>
+        <span class="node">Карточка или статья на ней</span><span class="arw">→</span>
+        <span class="node">Характеристики и сравнение</span><span class="arw">→</span>
+        <span class="node act">Заявка</span>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>B2B</h3><span class="kind">вторичный</span></div>
+      <div class="flow">
+        <span class="node src">Поиск · рекомендация</span><span class="arw">→</span>
+        <span class="node url">/b2b</span><span class="arw">→</span>
+        <span class="node">Условия и форма</span><span class="arw">→</span>
+        <span class="node sys">/thanks/b2b</span><span class="arw">→</span>
+        <span class="node">Менеджер</span><span class="arw">→</span>
+        <span class="node act">КП</span>
+      </div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-head"><h3>После поставки</h3><span class="kind">вторичный</span></div>
+      <div class="flow">
+        <span class="node src">Письмо · поиск «сборка»</span><span class="arw">→</span>
+        <span class="node url">/service</span><span class="arw">→</span>
+        <span class="node">Видео · гарантия · запчасти</span><span class="arw">→</span>
+        <span class="node act">Форма поддержки</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="life">
+    <div class="sec-kicker">После заявки</div>
+    <h2>Жизненный цикл листа ожидания</h2>
+    <p class="sec-intro">Сайт заканчивается на «спасибо». Дальше работает CRM — и она получает от формы модель, город и конфигурацию, иначе сегментации не будет.</p>
+
+    <div class="life">
+      <div class="step"><div class="n">1</div><div><h3>Заявка</h3><p>Имя, телефон, город, интересующие модели. Четыре поля плюс согласие.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h3>Сегментация</h3><p>Модель, город, конфигурация. Без этих полей письма будут одинаковыми для всех.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h3>Подтверждение</h3><p>Письмо или SMS: что произойдёт дальше и когда. Один конкретный срок.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h3>Прогрев</h3><p>Производство, материалы, сроки, первые кадры. Не «скоро», а конкретные этапы.</p></div></div>
+      <div class="step key"><div class="n">5</div><div><h3>Анонс предзаказа</h3><p>Участникам листа — раньше всех и с бонусом. Ссылка вида <span class="mono">/early-access?ref=whitelist</span>.</p></div></div>
+      <div class="step"><div class="n">6</div><div><h3>Предоплата</h3><p>Выбор модели, города, переход на хостинговую платёжную страницу. Корзины нет.</p></div></div>
+      <div class="step"><div class="n">7</div><div><h3>Таймлайн заказа</h3><p>Номер в первой партии, сроки производства, доставка. Обратная связь без вопросов клиента.</p></div></div>
+    </div>
+  </section>
+
+  <section id="phases">
+    <div class="sec-kicker">Состояния</div>
+    <h2>Две фазы /early-access</h2>
+    <p class="sec-intro">Одна страница, три состояния. Переключение — контентом, не редиректом.</p>
+
+    <figure>
+      <div class="figure-scroll">
+        <svg class="svg-grid" viewBox="0 0 1000 340" style="min-width:700px;width:100%" role="img" aria-label="Состояния страницы early-access: лист ожидания переходит в предзаказ по дате открытия; предзаказ может быть приостановлен и возобновлён">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+            </marker>
+          </defs>
+
+          <rect class="box" x="24" y="40" width="300" height="120" rx="9"/>
+          <text class="st-kicker" x="44" y="68">Фаза 1</text>
+          <text class="st-name" x="44" y="95">Лист ожидания</text>
+          <text class="st-desc" x="44" y="117">заявка без денег</text>
+          <text class="st-desc" x="44" y="136">собираем базу и конфигурации</text>
+
+          <rect class="box hot" x="596" y="40" width="360" height="120" rx="9"/>
+          <text class="st-kicker" x="616" y="68">Фаза 2</text>
+          <text class="st-name" x="616" y="95">Предзаказ</text>
+          <text class="st-desc" x="616" y="117">предоплата и бонусы</text>
+          <text class="st-desc" x="616" y="136">хостинговая платёжная страница</text>
+
+          <rect class="box hold" x="596" y="240" width="360" height="76" rx="9"/>
+          <text class="st-name" x="616" y="270">Пауза</text>
+          <text class="st-desc" x="616" y="292">форма скрыта, заявки не теряются</text>
+
+          <line class="edge" x1="324" y1="100" x2="586" y2="100" marker-end="url(#ah)" style="color:var(--line-strong)"/>
+          <text class="edge-label" x="455" y="88" text-anchor="middle">дата открытия</text>
+
+          <line class="edge" x1="700" y1="160" x2="700" y2="232" marker-end="url(#ah)" style="color:var(--muted)"/>
+          <text class="edge-label" x="688" y="200" text-anchor="end">набор закрыт</text>
+
+          <line class="edge" x1="852" y1="240" x2="852" y2="168" marker-end="url(#ah)" style="color:var(--muted)"/>
+          <text class="edge-label" x="864" y="204" text-anchor="start">возобновление</text>
+        </svg>
+      </div>
+      <figcaption>Состояние B — основное для запуска продаж. Состояние C существует, потому что приём предзаказов обязательно придётся останавливать, а заявки при этом нельзя терять.</figcaption>
+    </figure>
+
+    <div class="phase-notes">
+      <div class="pnote"><h3>Фаза 1 · что видно</h3><p>Выгоды участия, форма, «что дальше», FAQ про сроки и предоплату. Цена не названа — её получают участники первыми.</p></div>
+      <div class="pnote"><h3>Фаза 2 · что меняется</h3><p>Условия предоплаты, выбор модели и конфигурации, город, переход к оплате, бонусы за ранний заказ.</p></div>
+      <div class="pnote"><h3>Фаза 3 · пауза</h3><p>Форма заменяется на «уведомить о возобновлении». Старые заявки остаются в CRM и не смешиваются с новыми.</p></div>
+    </div>
+  </section>
+
+  <section id="picker">
+    <div class="sec-kicker">Подбор</div>
+    <h2>Подборщик модели</h2>
+    <p class="sec-intro">Три вопроса, один на экран, только тап. Ведёт на рекомендацию, а не на список. При равенстве баллов показываем две модели с пояснением.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Вопрос</th><th>Ответ</th><th style="text-align:center">S</th><th style="text-align:center">M</th><th style="text-align:center">L</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="qt" rowspan="3">Сколько у вас кошек?</td><td>одна</td><td class="num on">+2</td><td class="num">+1</td><td class="num">—</td></tr>
+          <tr><td>две</td><td class="num">+1</td><td class="num on">+2</td><td class="num">+1</td></tr>
+          <tr><td>три и больше</td><td class="num">—</td><td class="num">+1</td><td class="num on">+3</td></tr>
+          <tr><td class="qt" rowspan="3">Размер самой крупной кошки</td><td>до 5 кг</td><td class="num on">+1</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>5–8 кг</td><td class="num">—</td><td class="num on">+2</td><td class="num">—</td></tr>
+          <tr><td>8 кг и больше</td><td class="num">—</td><td class="num">—</td><td class="num on">+3</td></tr>
+          <tr><td class="qt" rowspan="3">Что важнее?</td><td>компактность</td><td class="num on">+2</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>больше лежанок</td><td class="num">—</td><td class="num on">+2</td><td class="num">+1</td></tr>
+          <tr><td>игры и лазание</td><td class="num">—</td><td class="num">+1</td><td class="num on">+3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-top:10px">Экран результата: «Рекомендуем NEST M» + три причины + «Открыть M», «Сравнить все», «Не уверен — в лист ожидания».</p>
+  </section>
+
+  <section id="pages" class="accent-sec">
+    <div class="sec-kicker">Спецификация</div>
+    <h2>Страницы и их работа</h2>
+    <p class="sec-intro">У каждой страницы одна задача и одно главное действие. Если блок не помогает задаче, он не нужен.</p>
+
+    <h3 style="font-size:15px;margin-bottom:6px">Как устроена главная страница</h3>
+    <p class="sec-intro" style="margin-bottom:16px">Главная ведёт человека к заявке в три шага. Сначала показывает, что это за продукт и зачем он нужен. Затем снимает три конкретных сомнения, из-за которых покупку откладывают. И только потом предлагает действие. Каждый блок отвечает на один вопрос, а не пытается сказать всё сразу.</p>
+
+    <div class="obj-grid">
+      <div class="obj">
+        <p class="obj-q">Зачем это нужно, если есть обычная когтеточка?</p>
+        <p class="obj-a">Показать, что это предмет интерьера, а не когтеточка, спрятанная за диваном: габариты, материалы и то, как модель встаёт в комнату.</p>
+        <p class="obj-where">Отвечают блоки: Hero · Три модели · Производство</p>
+      </div>
+      <div class="obj">
+        <p class="obj-q">Безопасно ли это и выдержит ли мою кошку?</p>
+        <p class="obj-a">Дать цифры вместо слова «качественно»: нагрузка на лежанку, устойчивость, крепления и испытания.</p>
+        <p class="obj-where">Отвечают блоки: Почему мы · Материалы и инженерия</p>
+      </div>
+      <div class="obj">
+        <p class="obj-q">Кто вы и что будет после оплаты?</p>
+        <p class="obj-a">Показать своё производство, сроки, гарантию, возврат и живой контакт. Плюс честный таймлайн предзаказа: что происходит между оплатой и доставкой.</p>
+        <p class="obj-where">Отвечают блоки: Как работает предзаказ · Доверие · Мини-FAQ</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;margin:28px 0 6px">Матрица страниц</h3>
+    <p class="sec-intro" style="margin-bottom:14px">«Задача» — что человек должен понять или сделать на этой странице. «Блоки» — чем страница это делает. «Действие» — единственная кнопка, которая должна остаться в памяти.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>URL</th><th>Задача страницы</th><th>Ключевые блоки</th><th>Главное действие</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="u">/</span></td>
+            <td>Показать, что это за продукт, развеять сомнения и позвать в лист ожидания</td>
+            <td>Hero, 3 модели, почему мы, производство, как работает предзаказ, доверие, мини-FAQ</td>
+            <td>В лист ожидания</td>
+          </tr>
+          <tr>
+            <td><span class="u">/models</span></td>
+            <td>Помочь выбрать одну из трёх, не заставляя изучать каталог</td>
+            <td>Карточки, сравнение, подборщик, «как выбрать», FAQ</td>
+            <td>Подобрать модель</td>
+          </tr>
+          <tr>
+            <td><span class="u">/models/nest-*</span></td>
+            <td>Показать модель вблизи и дать собрать свою конфигурацию</td>
+            <td>Галерея, характеристики, конфигуратор, статьи, мини-сравнение, доставка, FAQ</td>
+            <td>В лист ожидания</td>
+          </tr>
+          <tr>
+            <td><span class="u">/early-access</span></td>
+            <td>Собрать заявку, не утомив человека</td>
+            <td>Выгоды, форма 4 поля, «что дальше», FAQ</td>
+            <td>Отправить заявку</td>
+          </tr>
+          <tr>
+            <td><span class="u">/about</span></td>
+            <td>Показать, кто и как это делает: люди, цех, материалы</td>
+            <td>Манифест, производство, материалы и инженерия, команда, ответственность</td>
+            <td>Смотреть модели</td>
+          </tr>
+          <tr>
+            <td><span class="u">/service</span></td>
+            <td>Ответить на вопросы о доставке, сборке, гарантии и возврате</td>
+            <td>Доставка по РБ, оплата, сборка, гарантия и возврат, уход и запчасти, FAQ</td>
+            <td>Оставить заявку</td>
+          </tr>
+          <tr>
+            <td><span class="u">/contacts</span></td>
+            <td>Дать возможность связаться напрямую</td>
+            <td>Контакты, часы, соцсети, реквизиты, форма</td>
+            <td>Написать</td>
+          </tr>
+          <tr>
+            <td><span class="u">/b2b</span></td>
+            <td>Дать дизайнерам и бизнесу понятный вход в партнёрство</td>
+            <td>Кому подходит, что предлагаем, как начать, форма, FAQ</td>
+            <td>Запросить условия</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Документ описывает структуру и UX. Визуальный язык, логотип, палитра и типографика — зона брендинговой студии. Все решения по страницам можно менять без перестройки карты: адреса моделей и /early-access остаются неизменными.</p>
+</footer>
